@@ -27,9 +27,9 @@ jobs:
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Write-Host "::add-mask::$($info.clientSecret)"
 
-          azd login `
-            --client-id "$($info.clientId)" `
-            --client-secret "$($info.clientSecret)" `
+          azd login 
+            --client-id "$($info.clientId)" 
+            --client-secret "$($info.clientSecret)" 
             --tenant-id "$($info.tenantId)"
         shell: pwsh
         env:
