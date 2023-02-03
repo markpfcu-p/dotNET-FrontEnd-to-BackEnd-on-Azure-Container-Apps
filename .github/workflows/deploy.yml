@@ -24,12 +24,12 @@ jobs:
 
       - name: Log in with Azure (Client Credentials)
         run: |
-          azd login --tenant-id "$Env:AZURE_TENANTID" --client-id "$Env:AZURE_CLIENT_ID" --client-secret "$Env:AZURE_CLIENTSECRET"
+          azd login --tenant-id "$Env:AZURE_TENANTID1" --client-id "$Env:AZURE_CLIENT_ID1" --client-secret "$Env:AZURE_CLIENTSECRET1"
         shell: pwsh
         env:
-          AZURE_TENANTID: ${{ secrets.TENANTID }}
-          AZURE_CLIENTID: ${{ secrets.CLIENTID }}
-          AZURE_CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+          AZURE_TENANTID1: ${{ secrets.TENANTID }}
+          AZURE_CLIENTID1: ${{ secrets.CLIENTID }}
+          AZURE_CLIENTSECRET1: ${{ secrets.CLIENTSECRET }}
                     
       - name: Azure Dev Provision
         run: azd provision --no-prompt
