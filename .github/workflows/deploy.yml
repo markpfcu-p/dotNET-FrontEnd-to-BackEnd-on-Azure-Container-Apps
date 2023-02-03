@@ -28,9 +28,8 @@ jobs:
           AZURE_CLIENTID1: ${{ secrets.CLIENTID }}
           AZURE_CLIENTSECRET1: ${{ secrets.CLIENTSECRET }}
         run: |
-          echo $AZURE_CLIENTID1          
-          echo $AZURE_TENANTID1          
-          echo ${{ secrets.CLIENTID }}               
+          azd login --tenant-id ${AZURE_TENANTID1} --client-id ${AZURE_CLIENT_ID1} --client-secret ${AZURE_CLIENTSECRET1}
+        shell: pwsh              
              
       - name: Azure Dev Provision
         run: azd provision --no-prompt
