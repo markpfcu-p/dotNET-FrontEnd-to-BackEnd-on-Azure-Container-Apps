@@ -27,8 +27,8 @@ jobs:
           AZURE_TENANTID1: ${{ secrets.TENANTID }}
           AZURE_CLIENTID1: ${{ secrets.CLIENTID }}
           AZURE_CLIENTSECRET1: ${{ secrets.CLIENTSECRET }}
-        run: |
-           azd login --tenant-id $Env:AZURE_TENANTID1 --client-id $Env:AZURE_CLIENT_ID1 --client-secret $Env:AZURE_CLIENTSECRET1
+          AZURE_AZ_LOGIN: ${{ secrets.AZ_LOGIN }}
+        run: $Env:AZURE_AZ_LOGIN 
         shell: pwsh              
              
       - name: Azure Dev Provision
