@@ -24,7 +24,7 @@ jobs:
 
       - name: Log in with Azure (Client Credentials)
         run: |
-          azd login --client-id $Env:clientId  --client-secret $Env:clientSecret  --tenant-id $Env:tenantId
+          azd login --tenant-id $Env:tenantId --client-id $Env:clientId --client-secret $Env:clientSecret  
         shell: pwsh
         env:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
