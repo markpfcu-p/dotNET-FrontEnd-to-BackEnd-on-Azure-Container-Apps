@@ -23,13 +23,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Log in with Azure (Client Credentials)
-        shell: pwsh
         env:
           AZURE_TENANTID1: ${{ secrets.TENANTID }}
           AZURE_CLIENTID1: ${{ secrets.CLIENTID }}
           AZURE_CLIENTSECRET1: ${{ secrets.CLIENTSECRET }}
-        run: echo $AZURE_CLIENTID1          
-                    
+        run: |
+          echo $AZURE_CLIENTID1          
+          echo $AZURE_TENANTID1          
+          echo ${{ secrets.CLIENTID }}               
+             
       - name: Azure Dev Provision
         run: azd provision --no-prompt
         env:
