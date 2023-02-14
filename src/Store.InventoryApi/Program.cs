@@ -23,12 +23,12 @@ app.MapGet("/inventory/{productId}", (string productId, IMemoryCache memoryCache
     if(!memoryCache.TryGetValue(memCacheKey, out inventoryValue))
     {
         inventoryValue = new Random().Next(1, 100);
-        memoryCache.Set(memCacheKey, inventoryValue);
+        memoryCache.Set(memCacheKey, inventoryValue, DateTimeOffset.UtcNow.AddMilliseconds(100));
     }
 
     inventoryValue = memoryCache.Get<int>(memCacheKey);
-
-    return Results.Ok(inventoryValue);
+  //  return Results.Ok(inventoryValue);
+    return Results.Ok(new Random().Next(1, 100));
 })
 .Produces<int>(StatusCodes.Status200OK)
 .WithName("GetInventoryCount");

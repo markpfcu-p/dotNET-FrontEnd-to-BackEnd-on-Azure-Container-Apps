@@ -33,6 +33,16 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-09-01' = {
   }
 }
 
+resource sharedvolume 'Microsoft.Storage/storageAccounts/fileServices/shares@2022-09-01' = {
+  name: 'sv-${resourceToken}'
+  properties: {
+    accessTier: 'TransactionOptimized'
+    enabledProtocols: 'SMB'
+    metadata: {}
+    shareQuota: 100
+  }
+}
+
 resource logs 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
   name: '${abbrs.operationalInsightsWorkspaces}${resourceToken}'
   location: location
@@ -72,6 +82,20 @@ resource env 'Microsoft.App/managedEnvironments@2022-03-01' = {
       }
     }
   }
+}
+
+resource apim 'Microsoft.ApiManagement/service@2021-08-01' = {
+  name: '${abbrs.apiManagementService}${resourceToken}'
+  location: location
+  sku: {
+    name: 'Developer'
+    capacity: 1
+  }
+  properties: {
+    publisherEmail: 'mark.smith@partnersfcu.org'
+    publisherName: 'Partners' 
+  }
+  
 }
 
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = acr.properties.loginServer

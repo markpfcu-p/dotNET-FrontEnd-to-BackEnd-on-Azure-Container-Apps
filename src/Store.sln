@@ -8,8 +8,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.InventoryApi", "Store.InventoryApi\Store.InventoryApi.csproj", "{559C9860-F7E6-4410-B25F-73A3CF6C34AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "Store\Store.csproj", "{E8CE69DB-18CD-4115-A15A-B7F7AEB98E1B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{278CD1A8-2A46-4467-9AFB-9809F5C2EA81} = {278CD1A8-2A46-4467-9AFB-9809F5C2EA81}
+		{559C9860-F7E6-4410-B25F-73A3CF6C34AB} = {559C9860-F7E6-4410-B25F-73A3CF6C34AB}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitoring", "Monitoring\Monitoring.csproj", "{4661C6D1-2380-409D-B75A-78BF22AC8CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monitoring", "Monitoring\Monitoring.csproj", "{4661C6D1-2380-409D-B75A-78BF22AC8CC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

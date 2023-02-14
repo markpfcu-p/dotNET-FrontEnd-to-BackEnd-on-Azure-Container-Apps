@@ -1,12 +1,33 @@
+using Microsoft.Extensions.DependencyInjection;
 using Refit;
+
+var baseURL = (Environment.GetEnvironmentVariable("BASE_URL") ?? "http://localhost") + ":" + (Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "3500");
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddHttpClient("Products", (httpClient) => httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ProductsApi")));
-builder.Services.AddHttpClient("Inventory", (httpClient) => httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("InventoryApi")));
+
+//builder.Services.AddHttpClient("Products", httpClient);
+
+builder.Services.AddHttpClient("products", (httpClient) => 
+    {
+        httpClient.BaseAddress = new Uri(baseURL);
+        httpClient.DefaultRequestHeaders.Add("dapr-app-id", "products");
+        httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+    });
+
+builder.Services.AddHttpClient("inventory", (httpClient) =>
+{
+    httpClient.BaseAddress = new Uri(baseURL);
+    httpClient.DefaultRequestHeaders.Add("dapr-app-id", "inventory");
+    httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
+//builder.Services.AddHttpClient("Inventory", (httpClient) => httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("InventoryApi")));
+//builder.Services.AddHttpClient("Inventory", (httpClient) => httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("InventoryApi")));
+
 builder.Services.AddScoped<IStoreBackendClient, StoreBackendClient>();
 builder.Services.AddMemoryCache();
 builder.Services.AddApplicationMonitoring();
@@ -53,13 +74,13 @@ public class StoreBackendClient : IStoreBackendClient
 
     public async Task<int> GetInventory(string productId)
     {
-        var client = _httpClientFactory.CreateClient("Inventory");
+        var client = _httpClientFactory.CreateClient("inventory");
         return await RestService.For<IStoreBackendClient>(client).GetInventory(productId);
     }
 
     public async Task<List<Product>> GetProducts()
     {
-        var client = _httpClientFactory.CreateClient("Products");
+        var client = _httpClientFactory.CreateClient("products");
         return await RestService.For<IStoreBackendClient>(client).GetProducts();
     }
 }

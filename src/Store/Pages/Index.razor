@@ -45,7 +45,7 @@
                 product.Quantity = await _storeBackendClient.GetInventory(product.ProductId);
             }
             _products = products.ToList();
-            _memoryCache.Set<Product[]>(cacheKey, _products.ToArray());
+            _memoryCache.Set<Product[]>(cacheKey, _products.ToArray(), TimeSpan.FromSeconds(5));
             tmp = _products.ToArray();
         }
         _products = tmp.ToList();

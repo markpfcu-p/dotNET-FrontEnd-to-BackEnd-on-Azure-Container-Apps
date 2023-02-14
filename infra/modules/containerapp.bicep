@@ -52,6 +52,12 @@ resource containerapp 'Microsoft.App/containerApps@2022-03-01' = {
         external: ingress
         targetPort: port
       }
+      dapr: {
+        enabled: true
+        appPort: port
+        appId: containerAppName
+        appProtocol: 'http'
+      }
     }
     template: {
       containers: [
