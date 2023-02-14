@@ -33,15 +33,6 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-09-01' = {
   }
 }
 
-resource sharedvolume 'Microsoft.Storage/storageAccounts/fileServices/shares@2022-09-01' = {
-  name: 'sv-${resourceToken}'
-  properties: {
-    accessTier: 'TransactionOptimized'
-    enabledProtocols: 'SMB'
-    metadata: {}
-    shareQuota: 100
-  }
-}
 
 resource logs 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
   name: '${abbrs.operationalInsightsWorkspaces}${resourceToken}'
