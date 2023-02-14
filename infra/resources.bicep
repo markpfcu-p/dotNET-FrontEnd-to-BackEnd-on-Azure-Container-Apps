@@ -3,7 +3,7 @@ param resourceToken string
 param tags object
 var abbrs = loadJsonContent('abbreviations.json')
 
-resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
+resource acr 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
   name: '${abbrs.containerRegistryRegistries}${resourceToken}'
   tags: tags
   location: location
@@ -34,7 +34,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-09-01' = {
 }
 
 
-resource logs 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
+resource logs 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: '${abbrs.operationalInsightsWorkspaces}${resourceToken}'
   location: location
   tags: tags
@@ -60,7 +60,7 @@ resource ai 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-resource env 'Microsoft.App/managedEnvironments@2022-03-01' = {
+resource env 'Microsoft.App/managedEnvironments@2022-10-01' = {
   name: '${abbrs.appManagedEnvironments}${resourceToken}'
   location: location
   tags: tags

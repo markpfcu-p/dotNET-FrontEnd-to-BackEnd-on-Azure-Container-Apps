@@ -13,7 +13,7 @@ var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var tags = { 'azd-env-name': name }
 var abbrs = loadJsonContent('abbreviations.json')
 
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
     name: '${abbrs.resourcesResourceGroups}${name}'
     location: location
     tags: tags

@@ -14,3 +14,6 @@ module containerApp 'containerapp.bicep' = {
     ingress: false
   }
 }
+
+
+

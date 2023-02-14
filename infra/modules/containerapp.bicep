@@ -9,7 +9,7 @@ var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var tags = { 'azd-env-name': name }
 var abbrs = loadJsonContent('../abbreviations.json')
 
-resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' existing = {
+resource acr 'Microsoft.ContainerRegistry/registries@2022-12-01' existing = {
   name: '${abbrs.containerRegistryRegistries}${resourceToken}'
 }
 
@@ -17,7 +17,7 @@ resource ai 'Microsoft.Insights/components@2020-02-02' existing = {
   name: '${abbrs.insightsComponents}${resourceToken}'
 }
 
-resource env 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
+resource env 'Microsoft.App/managedEnvironments@2022-10-01' existing = {
   name: '${abbrs.appManagedEnvironments}${resourceToken}'
 }
 
@@ -27,8 +27,8 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-09-01' existing = {
 
 // We have to use ${name}service_name for now because we don't deploy it in azd provision and azd deploy won't find it
 // But the backup search logic will find it via this name.
-resource containerapp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: '${name}${containerAppName}'
+resource containerapp 'Microsoft.App/containerApps@2022-10-01' = {
+  name: containerAppName
   location: location
   tags: union(tags, { 'azd-service-name': containerAppName })
   properties: {
@@ -57,6 +57,8 @@ resource containerapp 'Microsoft.App/containerApps@2022-03-01' = {
         appPort: port
         appId: containerAppName
         appProtocol: 'http'
+        enableApiLogging: true
+        logLevel: 'info'
       }
     }
     template: {
